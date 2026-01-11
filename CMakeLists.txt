@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
+if (NOT DEFINED LIBUSB_ROOT)
 get_filename_component(LIBUSB_ROOT "libusb/libusb" ABSOLUTE)
+endif()
 
 # Get the version information from version.h ignoring the nano version as it appears in version_nano.h and so we need it?
 file(READ "${LIBUSB_ROOT}/version.h" VERSIONHEADERDATA)
@@ -230,6 +232,7 @@ else()
             "${LIBUSB_ROOT}/os/linux_netlink.c"
             "${LIBUSB_ROOT}/os/linux_usbfs.c"
             "${LIBUSB_ROOT}/os/linux_usbfs.h"
+            "${LIBUSB_ROOT}/os/linux_android_jni.c"
         )
         target_link_libraries(usb-1.0 PRIVATE android log)
     elseif(APPLE)
